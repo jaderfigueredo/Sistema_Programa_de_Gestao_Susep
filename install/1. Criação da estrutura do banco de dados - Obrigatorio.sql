@@ -754,15 +754,15 @@ as
 WITH cte
 AS
 (
-	SELECT	u.unidadeId, u.undNivel, u.undSigla as undSiglaCompleta, u.undSigla, u.Email, u.undCodigoSIORG
+	SELECT	u.unidadeId, u.undNivel, u.undSiglaSIORG as undSiglaCompleta, u.undSiglaSIORG, u.Email, u.undCodigoSIORG
 	FROM	Unidade as u
 	WHERE	u.unidadeIdPai is null and u.situacaoUnidadeId = 1
 	UNION ALL
-	SELECT	u.unidadeId, u.undNivel, cast(cte.undSiglaCompleta+'/'+u.undSigla as varchar(50)), u.undSigla, u.Email, u.undCodigoSIORG
+	SELECT	u.unidadeId, u.undNivel, cast(cte.undSiglaCompleta+'/'+u.undSiglaSIORG as varchar(50)), u.undSiglaSIORG, u.Email, u.undCodigoSIORG
 	FROM	Unidade as u
 	INNER JOIN cte ON u.unidadeIdPai = cte.unidadeId
 )
-SELECT und.unidadeId, und.undSigla, und.undDescricao, und.unidadeIdPai, und.tipoUnidadeId,
+SELECT und.unidadeId, und.undSiglaSIORG, und.undDescricaoSIORG, und.unidadeIdPai, und.tipoUnidadeId,
 und.situacaoUnidadeId, und.ufId, und.undNivel, und.tipoFuncaoUnidadeId, cte.undSiglaCompleta, und.Email, und.undCodigoSIORG
 FROM cte 
 INNER JOIN unidade und on cte.unidadeId = und.unidadeId
